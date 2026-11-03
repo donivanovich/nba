@@ -1,8 +1,17 @@
-//  @ts-check
+// @ts-check
 
 import { tanstackConfig } from '@tanstack/eslint-config'
 
 export default [
+  {
+    ignores: [
+      'eslint.config.js',
+      'prettier.config.js',
+      '.output/**',
+      'node_modules/**',
+      'dist/**',
+    ],
+  },
   ...tanstackConfig,
   {
     rules: {
@@ -13,8 +22,5 @@ export default [
       '@typescript-eslint/require-await': 'off',
       'pnpm/json-enforce-catalog': 'off',
     },
-  },
-  {
-    ignores: ['eslint.config.js', 'prettier.config.js'],
   },
 ]
