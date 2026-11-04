@@ -19,10 +19,24 @@ export default function TeamCard() {
         return (
           <a
             key={team.id}
+            href={`/teams/${team.abbreviation.toLowerCase()}`}
             style={{
-              borderImage: `linear-gradient(90deg, ${team.backgroundcolorPrimary}, ${team.backgroundcolorSecondary}) 1`,
-            }}
-            className="flex w-full min-h-50 flex-col justify-between rounded-4xl border border-white/10 border-t-7 bg-[#15181e] p-5 transition-all hover:-translate-y-1 hover:shadow-lg"
+              '--team-primary': team.backgroundcolorPrimary,
+              '--team-secondary': team.backgroundcolorSecondary,
+            } as React.CSSProperties}
+            className="
+            relative isolate flex w-full min-h-50 flex-col
+            justify-between overflow-hidden
+            rounded-3xl border border-white/10
+            bg-[#15181e] p-5 pt-7
+            transition-all duration-300
+            hover:-translate-y-1
+            hover:border-(--team-primary)
+            hover:shadow-[0_0_20px_color-mix(in_srgb,var(--team-primary)_25%,transparent)]
+            before:absolute before:inset-x-0 before:top-0
+            before:h-1.5
+            before:bg-[linear-gradient(90deg,var(--team-primary),var(--team-secondary))]
+          "
           >
             <div className="flex items-center justify-between">
               <div>
@@ -45,7 +59,7 @@ export default function TeamCard() {
             <p className="font-semibold text-primary">
               {superstar
                 ? `${superstar.name} ${superstar.surname}`
-                : 'No Superstar'}
+                : ''}
             </p>
           </a>
         )
