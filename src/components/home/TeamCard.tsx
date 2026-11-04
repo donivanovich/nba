@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import teamsData from '../../data/teams.json'
 import playersData from '../../data/players.json'
 import type { Team } from '../../types/Team'
@@ -17,9 +18,10 @@ export default function TeamCard() {
         )
 
         return (
-          <a
+          <Link
             key={team.id}
-            href={`/teams/${team.abbreviation.toLowerCase()}`}
+            to="/teams/$teamId"
+            params={{ teamId: String(team.id) }}
             style={{
               '--team-primary': team.backgroundcolorPrimary,
               '--team-secondary': team.backgroundcolorSecondary,
@@ -61,7 +63,7 @@ export default function TeamCard() {
                 ? `${superstar.name} ${superstar.surname}`
                 : ''}
             </p>
-          </a>
+          </Link>
         )
       })}
     </div>
