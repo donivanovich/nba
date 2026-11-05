@@ -11,8 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeRouteImport } from './routes/home'
-import { Route as PlayersSlugRouteImport } from './routes/players/$slug'
-import { Route as TeamsAbbreviationRouteImport } from './routes/teams/$abbreviation'
+import { Route as SeasonTeamsAbbreviationRouteRouteImport } from './routes/$season/teams/$abbreviation/route'
+import { Route as SeasonTeamsAbbreviationIndexRouteImport } from './routes/$season/teams/$abbreviation/index'
+import { Route as SeasonTeamsAbbreviationSlugRouteImport } from './routes/$season/teams/$abbreviation/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,49 +25,73 @@ const HomeRoute = HomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlayersSlugRoute = PlayersSlugRouteImport.update({
-  id: '/players/$slug',
-  path: '/players/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TeamsAbbreviationRoute = TeamsAbbreviationRouteImport.update({
-  id: '/teams/$abbreviation',
-  path: '/teams/$abbreviation',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const SeasonTeamsAbbreviationRouteRoute =
+  SeasonTeamsAbbreviationRouteRouteImport.update({
+    id: '/$season/teams/$abbreviation',
+    path: '/$season/teams/$abbreviation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SeasonTeamsAbbreviationIndexRoute =
+  SeasonTeamsAbbreviationIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => SeasonTeamsAbbreviationRouteRoute,
+  } as any)
+const SeasonTeamsAbbreviationSlugRoute =
+  SeasonTeamsAbbreviationSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => SeasonTeamsAbbreviationRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
-  '/players/$slug': typeof PlayersSlugRoute
-  '/teams/$abbreviation': typeof TeamsAbbreviationRoute
+  '/$season/teams/$abbreviation': typeof SeasonTeamsAbbreviationRouteRouteWithChildren
+  '/$season/teams/$abbreviation/$slug': typeof SeasonTeamsAbbreviationSlugRoute
+  '/$season/teams/$abbreviation/': typeof SeasonTeamsAbbreviationIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
-  '/players/$slug': typeof PlayersSlugRoute
-  '/teams/$abbreviation': typeof TeamsAbbreviationRoute
+  '/$season/teams/$abbreviation/$slug': typeof SeasonTeamsAbbreviationSlugRoute
+  '/$season/teams/$abbreviation': typeof SeasonTeamsAbbreviationIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
-  '/players/$slug': typeof PlayersSlugRoute
-  '/teams/$abbreviation': typeof TeamsAbbreviationRoute
+  '/$season/teams/$abbreviation': typeof SeasonTeamsAbbreviationRouteRouteWithChildren
+  '/$season/teams/$abbreviation/$slug': typeof SeasonTeamsAbbreviationSlugRoute
+  '/$season/teams/$abbreviation/': typeof SeasonTeamsAbbreviationIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/players/$slug' | '/teams/$abbreviation'
+  fullPaths:
+    | '/'
+    | '/home'
+    | '/$season/teams/$abbreviation'
+    | '/$season/teams/$abbreviation/$slug'
+    | '/$season/teams/$abbreviation/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/players/$slug' | '/teams/$abbreviation'
-  id: '__root__' | '/' | '/home' | '/players/$slug' | '/teams/$abbreviation'
+  to:
+    | '/'
+    | '/home'
+    | '/$season/teams/$abbreviation/$slug'
+    | '/$season/teams/$abbreviation'
+  id:
+    | '__root__'
+    | '/'
+    | '/home'
+    | '/$season/teams/$abbreviation'
+    | '/$season/teams/$abbreviation/$slug'
+    | '/$season/teams/$abbreviation/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
-  PlayersSlugRoute: typeof PlayersSlugRoute
-  TeamsAbbreviationRoute: typeof TeamsAbbreviationRoute
+  SeasonTeamsAbbreviationRouteRoute: typeof SeasonTeamsAbbreviationRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -85,28 +110,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/players/$slug': {
-      id: '/players/$slug'
-      path: '/players/$slug'
-      fullPath: '/players/$slug'
-      preLoaderRoute: typeof PlayersSlugRouteImport
+    '/$season/teams/$abbreviation': {
+      id: '/$season/teams/$abbreviation'
+      path: '/$season/teams/$abbreviation'
+      fullPath: '/$season/teams/$abbreviation'
+      preLoaderRoute: typeof SeasonTeamsAbbreviationRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/teams/$abbreviation': {
-      id: '/teams/$abbreviation'
-      path: '/teams/$abbreviation'
-      fullPath: '/teams/$abbreviation'
-      preLoaderRoute: typeof TeamsAbbreviationRouteImport
-      parentRoute: typeof rootRouteImport
+    '/$season/teams/$abbreviation/': {
+      id: '/$season/teams/$abbreviation/'
+      path: '/'
+      fullPath: '/$season/teams/$abbreviation/'
+      preLoaderRoute: typeof SeasonTeamsAbbreviationIndexRouteImport
+      parentRoute: typeof SeasonTeamsAbbreviationRouteRoute
+    }
+    '/$season/teams/$abbreviation/$slug': {
+      id: '/$season/teams/$abbreviation/$slug'
+      path: '/$slug'
+      fullPath: '/$season/teams/$abbreviation/$slug'
+      preLoaderRoute: typeof SeasonTeamsAbbreviationSlugRouteImport
+      parentRoute: typeof SeasonTeamsAbbreviationRouteRoute
     }
   }
 }
 
+interface SeasonTeamsAbbreviationRouteRouteChildren {
+  SeasonTeamsAbbreviationSlugRoute: typeof SeasonTeamsAbbreviationSlugRoute
+  SeasonTeamsAbbreviationIndexRoute: typeof SeasonTeamsAbbreviationIndexRoute
+}
+
+const SeasonTeamsAbbreviationRouteRouteChildren: SeasonTeamsAbbreviationRouteRouteChildren =
+  {
+    SeasonTeamsAbbreviationSlugRoute: SeasonTeamsAbbreviationSlugRoute,
+    SeasonTeamsAbbreviationIndexRoute: SeasonTeamsAbbreviationIndexRoute,
+  }
+
+const SeasonTeamsAbbreviationRouteRouteWithChildren =
+  SeasonTeamsAbbreviationRouteRoute._addFileChildren(
+    SeasonTeamsAbbreviationRouteRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
-  PlayersSlugRoute: PlayersSlugRoute,
-  TeamsAbbreviationRoute: TeamsAbbreviationRoute,
+  SeasonTeamsAbbreviationRouteRoute:
+    SeasonTeamsAbbreviationRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

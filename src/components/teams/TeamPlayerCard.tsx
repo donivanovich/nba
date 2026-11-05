@@ -1,21 +1,19 @@
 import { Link } from '@tanstack/react-router'
 
-import playersData from '../../data/players.json'
-import statsData from '../../data/stats.json'
-import teamsData from '../../data/teams.json'
-
-import type { Player } from '../../types/Player'
-import type { Team } from '../../types/Team'
-
-const teams = teamsData as Team[]
-const players = playersData as Player[]
+import { getSeasonData } from '#/data/seasons'
+import { getSeasonPlayerPhoto } from '#/utils/getSeasonPlayerPhoto'
 
 interface TeamPlayerCardProps {
     teamId: number
     type: 'key' | 'normal'
+    season: string
 }
 
-export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
+export default function TeamPlayerCard({ teamId, type, season }: TeamPlayerCardProps) {
+    const seasonData = getSeasonData(season)
+    const teams = seasonData?.teams ?? []
+    const players = seasonData?.players ?? []
+    const statsData = seasonData?.stats ?? []
     const team = teams.find((team) => team.id === teamId)
 
     const teamPlayers = players.filter((player) => {
@@ -47,8 +45,8 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
                 return (
                 <Link
                     key={player.id}
-                    to="/players/$slug"
-                    params={{ slug }}
+                    to="/$season/teams/$abbreviation/$slug"
+                    params={{ season, abbreviation: team?.abbreviation.toLowerCase() ?? '', slug }}
                     className="
                         player-card
                         hover:border-(--team-primary)
@@ -66,7 +64,7 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
                         }}
                     >
                         <img
-                            src={player.photo}
+                            src={getSeasonPlayerPhoto(player.photo, season)}
                             alt={player.fullname}
                             className="h-full w-auto max-w-full object-contain object-bottom"
                         />

@@ -1,13 +1,15 @@
 import type { Player } from '#/types/Player'
 import type { Team } from '#/types/Team'
 import PlayerTeamLogo from './PlayerTeamLogo'
+import { getSeasonPlayerPhoto } from '#/utils/getSeasonPlayerPhoto'
 
 interface PlayerHeroProps {
     player: Player
     team?: Team
+    season: string
 }
 
-export default function PlayerHero({ player, team }: PlayerHeroProps) {
+export default function PlayerHero({ player, team, season }: PlayerHeroProps) {
     const age = Math.floor(
         (Date.now() - new Date(player.dateOfBirth).getTime()) /
             (365.25 * 24 * 60 * 60 * 1000)
@@ -24,7 +26,7 @@ export default function PlayerHero({ player, team }: PlayerHeroProps) {
             }}
         >
             <img
-                src={player.photo}
+                src={getSeasonPlayerPhoto(player.photo, season)}
                 alt={player.fullname}
                 className="z-10 h-64 w-[42%] object-contain object-bottom"
             />

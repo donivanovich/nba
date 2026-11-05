@@ -1,19 +1,17 @@
 import { Link } from '@tanstack/react-router'
-import teamsData from '../../data/teams.json'
-import playersData from '../../data/players.json'
-import type { Team } from '../../types/Team'
-import type { Player } from '../../types/Player'
+import { getSeasonData } from '#/data/seasons'
 import type { ConferenceFilter } from './TeamDirectory'
-
-const teams = teamsData as Team[]
-const players = playersData as Player[]
 
 interface TeamCardProps {
   conference: ConferenceFilter
   query: string
+  season: string
 }
 
-export default function TeamCard({ conference, query }: TeamCardProps) {
+export default function TeamCard({ conference, query, season }: TeamCardProps) {
+  const seasonData = getSeasonData(season)
+  const teams = seasonData?.teams ?? []
+  const players = seasonData?.players ?? []
   const visibleTeams = teams.filter((team) => {
     const matchesConference = conference === 'ALL' || team.conference.trim().toUpperCase() === conference
     const matchesQuery = `${team.name1} ${team.name2}`.toLowerCase().includes(query.trim().toLowerCase())
@@ -32,8 +30,8 @@ export default function TeamCard({ conference, query }: TeamCardProps) {
         return (
           <Link
             key={team.id}
-            to="/teams/$abbreviation"
-            params={{ abbreviation: team.abbreviation.toLowerCase() }}
+            to="/$season/teams/$abbreviation"
+            params={{ season, abbreviation: team.abbreviation.toLowerCase() }}
             style={{
               '--team-primary': team.backgroundcolorPrimary,
               '--team-secondary': team.backgroundcolorSecondary,
