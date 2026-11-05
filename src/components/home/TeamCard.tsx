@@ -42,14 +42,14 @@ export default function TeamCard() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-secondary">{team.city}</p>
-                <h2 className="text-2xl font-bold">{team.name}</h2>
+                <p className="text-secondary">{team.name1}</p>
+                <h2 className="text-2xl font-bold">{team.name2}</h2>
               </div>
 
               <img
                 className="h-20 w-20 object-contain"
                 src={team.logo}
-                alt={team.name}
+                alt={team.name1 + ' ' + team.name2 + ' logo'}
               />
             </div>
 

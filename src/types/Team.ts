@@ -1,6 +1,7 @@
 export interface Team {
     id: number
-    name: string
+    name1: string
+    name2: string
     abbreviation: string
     city: string
     conference: string
