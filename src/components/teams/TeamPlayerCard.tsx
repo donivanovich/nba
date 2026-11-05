@@ -68,7 +68,7 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
 
                     <div className="flex flex-col w-full p-4 gap-4">
                         <div className="flex flex-row items-center justify-between w-full">
-                            <span className="text-2xl font-bold" style={{ color: team?.backgroundcolorSecondary }}>
+                            <span className="jersey-number text-2xl font-bold" style={{ color: team?.backgroundcolorSecondary }}>
                                 #{player.number}
                             </span>
                             <span>{player.position}</span>

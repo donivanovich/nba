@@ -27,6 +27,7 @@ input, button { font: inherit; }
 .team-info-card { @apply rounded-3xl bg-[#15181e] p-5; }
 .team-hero { @apply flex min-h-50 w-full items-center gap-8 rounded-3xl border-b-6 p-5; }
 .player-card { @apply relative isolate flex w-full flex-col items-center overflow-hidden rounded-3xl bg-[#15181e] transition-all duration-300 hover:-translate-y-1; }
+.jersey-number { -webkit-text-stroke: 1px white; paint-order: stroke fill; }
 
 @media (max-width: 640px) {
   body { width: min(calc(100% - 1.5rem), 1200px); padding-block: 1rem; }
