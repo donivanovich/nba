@@ -1,5 +1,6 @@
 import type { Player } from '#/types/Player'
 import PlayerBioCard from './PlayerBioCard'
+import { getNBAExperience } from '#/utils/getNBAExperience'
 
 interface PlayerBioSectionProps {
     player: Player
@@ -16,8 +17,8 @@ export default function PlayerBioSection({
         { label: 'WEIGHT', value: `${player.weight} lb` },
         { label: 'HEIGHT', value: player.height },
         { label: 'DOMINANT HAND', value: player.dominantHand },
-        { label: 'NBA DEBUT', value: player.nbaDebutYear },
-        { label: 'EXPERIENCE', value: `${player.nbaExperience} years` },
+        { label: 'NBA DEBUT', value: player.nbaDebut ?? 'Rookie' },
+        { label: 'EXPERIENCE', value: getNBAExperience(player.nbaDebut) },
     ]
 
     return (
@@ -25,12 +26,6 @@ export default function PlayerBioSection({
             <h2 className="text-xl font-black uppercase">
                 Player bio
             </h2>
-
-            <img
-                src={player.flag}
-                alt={player.country}
-                className="h-7 w-12 rounded-sm object-cover"
-            />
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {bio.map((item) => (

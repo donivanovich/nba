@@ -30,12 +30,12 @@ export default function PlayerHero({ player, team }: PlayerHeroProps) {
             />
 
             <div className="player-hero-copy z-10 flex flex-1 flex-col justify-center self-center py-6 pr-20">
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-12">
                     <span className="text-5xl font-black">
                         #{player.number}
                     </span>
 
-                    <span className="rounded-full bg-[#101216] px-4 py-2 text-xs font-bold uppercase text-orange-400">
+                    <span className="rounded-full bg-[#101216] px-4 py-2 text-xs font-bold uppercase text-white-500">
                         {player.status}
                     </span>
                 </div>
@@ -51,6 +51,11 @@ export default function PlayerHero({ player, team }: PlayerHeroProps) {
             </div>
 
             {team && <PlayerTeamLogo team={team} />}
+            <img
+                src={player.flag}
+                alt={player.country}
+                className="player-hero-flag rounded-full absolute bottom-7 right-7 h-12 w-12 object-contain"
+            />
         </section>
     )
 }

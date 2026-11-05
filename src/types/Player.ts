@@ -12,8 +12,7 @@ export interface Player {
     dateOfBirth: string
     city: string
     country: string
-    nbaExperience: number
-    nbaDebutYear: number
+    nbaDebut: string | null
     dominantHand: string
     photo: string
     flag: string
