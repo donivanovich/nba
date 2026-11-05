@@ -30,6 +30,12 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
     return (
         <div className="player-grid">
             {teamPlayers.map((player) => {
+                const [month, day, year] = player.dateOfBirth.split('/').map(Number)
+                const today = new Date()
+                const age = today.getFullYear() - year - (
+                    today.getMonth() < month - 1 ||
+                    (today.getMonth() === month - 1 && today.getDate() < day) ? 1 : 0
+                )
                 const slug = `${player.name}-${player.surname}`
                 .toLowerCase()
                 .replace(/\s+/g, '-')
@@ -86,7 +92,7 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
                         </div>
 
                         <div className="flex flex-row items-center justify-between w-full">
-                            <p>{player.status} · {player.dateOfBirth}</p>
+                            <p>{player.status} · {age} yrs</p>
                         </div>
 
                         <div className="flex flex-row items-center justify-between w-full gap-4">

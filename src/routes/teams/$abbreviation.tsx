@@ -31,7 +31,7 @@ function RouteComponent() {
 
   return (
     <main className="flex flex-col gap-8">
-      <BackButton label="ALL TEAMS" />
+      <BackButton label="HOME" />
       <TeamPageHeader team={team} />
       <TeamInfoCard team={team} />
       <TeamKeyPlayers teamId={team.id} />
