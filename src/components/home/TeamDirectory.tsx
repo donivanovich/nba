@@ -3,8 +3,10 @@ import TeamCard from './TeamDirectoryGrid'
 import TeamDirectoryFilters from './TeamDirectoryFilters'
 import TeamSearch from './TeamSearch'
 
+export type ConferenceFilter = 'ALL' | 'EAST' | 'WEST'
+
 export default function TeamDirectory() {
-    const [conference, setConference] = useState('ALL')
+    const [conference, setConference] = useState<ConferenceFilter>('ALL')
     const [query, setQuery] = useState('')
 
     return (

@@ -3,25 +3,26 @@ import teamsData from '../../data/teams.json'
 import playersData from '../../data/players.json'
 import type { Team } from '../../types/Team'
 import type { Player } from '../../types/Player'
+import type { ConferenceFilter } from './TeamDirectory'
 
 const teams = teamsData as Team[]
 const players = playersData as Player[]
 
 interface TeamCardProps {
-  conference: string
+  conference: ConferenceFilter
   query: string
 }
 
 export default function TeamCard({ conference, query }: TeamCardProps) {
   const visibleTeams = teams.filter((team) => {
-    const matchesConference = conference === 'ALL' || team.conference.toUpperCase() === conference
+    const matchesConference = conference === 'ALL' || team.conference.trim().toUpperCase() === conference
     const matchesQuery = `${team.name1} ${team.name2}`.toLowerCase().includes(query.trim().toLowerCase())
     return matchesConference && matchesQuery
   })
 
   return (
     <section aria-label="NBA teams" className="team-grid">
-      {visibleTeams.map((team) => {
+      {visibleTeams.length ? visibleTeams.map((team) => {
         const superstar = players.find(
           (player) =>
             player.teamId === team.id &&
@@ -64,7 +65,7 @@ export default function TeamCard({ conference, query }: TeamCardProps) {
             </p>
           </Link>
         )
-      })}
+      }) : <p className="col-span-full py-8 text-center" role="status">No teams match your filters.</p>}
     </section>
   )
 }
