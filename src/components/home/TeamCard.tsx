@@ -20,25 +20,25 @@ export default function TeamCard() {
         return (
           <Link
             key={team.id}
-            to="/teams/$teamId"
-            params={{ teamId: String(team.id) }}
+            to="/teams/$abbreviation"
+            params={{ abbreviation: team.abbreviation.toLowerCase() }}
             style={{
               '--team-primary': team.backgroundcolorPrimary,
               '--team-secondary': team.backgroundcolorSecondary,
             } as React.CSSProperties}
             className="
-            relative isolate flex w-full min-h-50 flex-col
-            justify-between overflow-hidden
-            rounded-3xl border border-white/10
-            bg-[#15181e] p-5 pt-7
-            transition-all duration-300
-            hover:-translate-y-1
-            hover:border-(--team-primary)
-            hover:shadow-[0_0_20px_color-mix(in_srgb,var(--team-primary)_25%,transparent)]
-            before:absolute before:inset-x-0 before:top-0
-            before:h-1.5
-            before:bg-[linear-gradient(90deg,var(--team-primary),var(--team-secondary))]
-          "
+              relative isolate flex w-full min-h-50 flex-col
+              justify-between overflow-hidden
+              rounded-3xl border border-white/10
+              bg-[#15181e] p-5 pt-7
+              transition-all duration-300
+              hover:-translate-y-1
+              hover:border-(--team-primary)
+              hover:shadow-[0_0_20px_color-mix(in_srgb,var(--team-primary)_25%,transparent)]
+              before:absolute before:inset-x-0 before:top-0
+              before:h-1.5
+              before:bg-[linear-gradient(90deg,var(--team-primary),var(--team-secondary))]
+            "
           >
             <div className="flex items-center justify-between">
               <div>

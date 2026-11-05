@@ -1,10 +1,14 @@
-import TeamPlayerCard from "./TeamPlayerCard";
+import TeamPlayerCard from './TeamPlayerCard'
 
-export default function TeamNormalPlayers() {
+interface TeamNormalPlayersProps {
+    teamId: number
+}
+
+export default function TeamNormalPlayers({ teamId }: TeamNormalPlayersProps) {
     return (
         <>
-            <h2>NORMAL PLAYERS</h2>
-            <TeamPlayerCard />
+            <h2>PLAYERS</h2>
+            <TeamPlayerCard teamId={teamId} type="normal" />
         </>
     )
 }

@@ -10,53 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PlayersPlayerIdRouteImport } from './routes/players/$playerId'
-import { Route as TeamsTeamIdRouteImport } from './routes/teams/$teamId'
+import { Route as HomeRouteImport } from './routes/home'
+import { Route as PlayersSlugRouteImport } from './routes/players/$slug'
+import { Route as TeamsAbbreviationRouteImport } from './routes/teams/$abbreviation'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlayersPlayerIdRoute = PlayersPlayerIdRouteImport.update({
-  id: '/players/$playerId',
-  path: '/players/$playerId',
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TeamsTeamIdRoute = TeamsTeamIdRouteImport.update({
-  id: '/teams/$teamId',
-  path: '/teams/$teamId',
+const PlayersSlugRoute = PlayersSlugRouteImport.update({
+  id: '/players/$slug',
+  path: '/players/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamsAbbreviationRoute = TeamsAbbreviationRouteImport.update({
+  id: '/teams/$abbreviation',
+  path: '/teams/$abbreviation',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/players/$playerId': typeof PlayersPlayerIdRoute
-  '/teams/$teamId': typeof TeamsTeamIdRoute
+  '/home': typeof HomeRoute
+  '/players/$slug': typeof PlayersSlugRoute
+  '/teams/$abbreviation': typeof TeamsAbbreviationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/players/$playerId': typeof PlayersPlayerIdRoute
-  '/teams/$teamId': typeof TeamsTeamIdRoute
+  '/home': typeof HomeRoute
+  '/players/$slug': typeof PlayersSlugRoute
+  '/teams/$abbreviation': typeof TeamsAbbreviationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/players/$playerId': typeof PlayersPlayerIdRoute
-  '/teams/$teamId': typeof TeamsTeamIdRoute
+  '/home': typeof HomeRoute
+  '/players/$slug': typeof PlayersSlugRoute
+  '/teams/$abbreviation': typeof TeamsAbbreviationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/players/$playerId' | '/teams/$teamId'
+  fullPaths: '/' | '/home' | '/players/$slug' | '/teams/$abbreviation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/players/$playerId' | '/teams/$teamId'
-  id: '__root__' | '/' | '/players/$playerId' | '/teams/$teamId'
+  to: '/' | '/home' | '/players/$slug' | '/teams/$abbreviation'
+  id: '__root__' | '/' | '/home' | '/players/$slug' | '/teams/$abbreviation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PlayersPlayerIdRoute: typeof PlayersPlayerIdRoute
-  TeamsTeamIdRoute: typeof TeamsTeamIdRoute
+  HomeRoute: typeof HomeRoute
+  PlayersSlugRoute: typeof PlayersSlugRoute
+  TeamsAbbreviationRoute: typeof TeamsAbbreviationRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,18 +78,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/players/$playerId': {
-      id: '/players/$playerId'
-      path: '/players/$playerId'
-      fullPath: '/players/$playerId'
-      preLoaderRoute: typeof PlayersPlayerIdRouteImport
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/teams/$teamId': {
-      id: '/teams/$teamId'
-      path: '/teams/$teamId'
-      fullPath: '/teams/$teamId'
-      preLoaderRoute: typeof TeamsTeamIdRouteImport
+    '/players/$slug': {
+      id: '/players/$slug'
+      path: '/players/$slug'
+      fullPath: '/players/$slug'
+      preLoaderRoute: typeof PlayersSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teams/$abbreviation': {
+      id: '/teams/$abbreviation'
+      path: '/teams/$abbreviation'
+      fullPath: '/teams/$abbreviation'
+      preLoaderRoute: typeof TeamsAbbreviationRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -87,8 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PlayersPlayerIdRoute: PlayersPlayerIdRoute,
-  TeamsTeamIdRoute: TeamsTeamIdRoute,
+  HomeRoute: HomeRoute,
+  PlayersSlugRoute: PlayersSlugRoute,
+  TeamsAbbreviationRoute: TeamsAbbreviationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

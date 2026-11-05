@@ -1,10 +1,14 @@
-import TeamPlayerCard from "./TeamPlayerCard";
+import TeamPlayerCard from './TeamPlayerCard'
 
-export default function TeamKeyPlayers() {
+interface TeamKeyPlayersProps {
+    teamId: number
+}
+
+export default function TeamKeyPlayers({ teamId }: TeamKeyPlayersProps) {
     return (
         <>
             <h2>KEY PLAYERS</h2>
-            <TeamPlayerCard />
+            <TeamPlayerCard teamId={teamId} type="key" />
         </>
     )
 }
