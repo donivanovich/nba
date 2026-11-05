@@ -28,7 +28,7 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
     })
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+        <div className="player-grid">
             {teamPlayers.map((player) => {
                 const slug = `${player.name}-${player.surname}`
                 .toLowerCase()
@@ -44,15 +44,14 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
                     to="/players/$slug"
                     params={{ slug }}
                     className="
-                        flex flex-col items-center bg-[#15181e] rounded-3xl w-full overflow-hidden 
-                        transition-all duration-300
-                        hover:-translate-y-1
+                        player-card
                         hover:border-(--team-primary)
                         hover:shadow-[0_0_20px_color-mix(in_srgb,var(--team-primary)_25%,transparent)]
                         before:absolute before:inset-x-0 before:top-0
                         before:h-1.5
                         before:bg-[linear-gradient(90deg,var(--team-primary),var(--team-secondary))]
                     "
+                    style={{ '--team-primary': team?.backgroundcolorPrimary, '--team-secondary': team?.backgroundcolorSecondary } as React.CSSProperties}
                 >
                     <div
                         className="flex items-end justify-center w-full aspect-2/1 overflow-hidden"
@@ -69,10 +68,10 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
 
                     <div className="flex flex-col w-full p-4 gap-4">
                         <div className="flex flex-row items-center justify-between w-full">
-                            <h1 style={{ color: team?.backgroundcolorSecondary }}>
+                            <span className="text-2xl font-bold" style={{ color: team?.backgroundcolorSecondary }}>
                                 #{player.number}
-                            </h1>
-                            <h2>{player.position}</h2>
+                            </span>
+                            <span>{player.position}</span>
                         </div>
 
                         <div className="flex flex-row items-center justify-between w-full">
@@ -92,23 +91,23 @@ export default function TeamPlayerCard({ teamId, type }: TeamPlayerCardProps) {
 
                         <div className="flex flex-row items-center justify-between w-full gap-4">
                             <div className="bg-[#21242a] rounded-xl p-3 flex flex-col items-center flex-1">
-                                <h2 className="text-xl font-bold">
+                                <p className="text-xl font-bold text-white">
                                     {stats?.points ?? 0}
-                                </h2>
+                                </p>
                                 <span className="text-sm text-secondary">PTS</span>
                             </div>
 
                             <div className="bg-[#21242a] rounded-xl p-3 flex flex-col items-center flex-1">
-                                <h2 className="text-xl font-bold">
+                                <p className="text-xl font-bold text-white">
                                     {stats?.rebounds ?? 0}
-                                </h2>
+                                </p>
                                 <span className="text-sm text-secondary">REB</span>
                             </div>
 
                             <div className="bg-[#21242a] rounded-xl p-3 flex flex-col items-center flex-1">
-                                <h2 className="text-xl font-bold">
+                                <p className="text-xl font-bold text-white">
                                     {stats?.assists ?? 0}
-                                </h2>
+                                </p>
                                 <span className="text-sm text-secondary">AST</span>
                             </div>
                         </div>

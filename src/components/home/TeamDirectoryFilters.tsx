@@ -1,9 +1,18 @@
-export default function TeamDirectoryFilters() {
+interface TeamDirectoryFiltersProps {
+    value: string
+    onChange: (conference: string) => void
+}
+
+export default function TeamDirectoryFilters({ value, onChange }: TeamDirectoryFiltersProps) {
+    const filters = ['ALL', 'EAST', 'WEST']
+
     return (
-        <nav className="flex flex-row gap-8">
-            <button className="color-primary text-black bg-orange-400 border border-gray-500 hover:border-orange-500 font-color-black padding-30 w-fit px-4 py-2 rounded-4xl">ALL</button>
-            <button className="color-primary text-black bg-orange-400 border border-gray-500 hover:border-orange-500 font-color-black padding-30 w-fit px-4 py-2 rounded-4xl">EAST</button>
-            <button className="color-primary text-black bg-orange-400 border border-gray-500 hover:border-orange-500 font-color-black padding-30 w-fit px-4 py-2 rounded-4xl">WEST</button>
+        <nav aria-label="Filter teams by conference" className="flex flex-row gap-2 sm:gap-4">
+            {filters.map((filter) => (
+                <button key={filter} type="button" aria-pressed={value === filter} onClick={() => onChange(filter)} className="w-fit rounded-4xl border border-gray-500 bg-orange-400 px-4 py-2 text-black hover:border-orange-500">
+                    {filter}
+                </button>
+            ))}
         </nav>
     )
 }

@@ -10,11 +10,12 @@ export default function BackButton({ label }: BackButtonProps) {
 
     return (
         <button
+            type="button"
             onClick={() => router.history.back()}
             className="flex justify-start w-auto bg-transparent"
         >
             <ArrowLeft size={20} />
-            <span>{label}</span>
+            <span className="text-secondary">{label}</span>
         </button>
     )
 }

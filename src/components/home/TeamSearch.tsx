@@ -1,5 +1,10 @@
-export default function TeamSearch() {
+interface TeamSearchProps {
+    value: string
+    onChange: (query: string) => void
+}
+
+export default function TeamSearch({ value, onChange }: TeamSearchProps) {
     return (
-        <input className="color-primary text-white bg-black-400 border border-gray-500 font-color-black padding-30 w-fit px-4 py-2 rounded-4xl" type="text" placeholder="Search team..."/>
+        <input aria-label="Search teams" className="w-fit rounded-4xl border border-gray-500 bg-black px-4 py-2 text-white sm:w-64" type="search" placeholder="Search team..." value={value} onChange={(event) => onChange(event.target.value)} />
     )
 }

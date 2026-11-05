@@ -26,7 +26,7 @@ export const Route = createRootRoute({
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: '/public/favicon.ico',
+        href: '/favicon.ico',
       },
     ],
   }),
@@ -35,7 +35,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <HeadContent />
       </head>

@@ -1,11 +1,19 @@
+﻿import { useState } from 'react'
+import TeamCard from './TeamDirectoryGrid'
 import TeamDirectoryFilters from './TeamDirectoryFilters'
 import TeamSearch from './TeamSearch'
 
 export default function TeamDirectory() {
+    const [conference, setConference] = useState('ALL')
+    const [query, setQuery] = useState('')
+
     return (
-        <div className="flex flex-row justify-between">
-            <TeamDirectoryFilters/>
-            <TeamSearch/>
-        </div>
+        <section aria-label="Team directory" className="flex flex-col gap-6">
+            <div className="team-directory flex flex-row justify-between">
+                <TeamDirectoryFilters value={conference} onChange={setConference} />
+                <TeamSearch value={query} onChange={setQuery} />
+            </div>
+            <TeamCard conference={conference} query={query} />
+        </section>
     )
 }

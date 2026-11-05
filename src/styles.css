@@ -8,18 +8,41 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#app {
-  min-height: 100%;
-}
+html, body, #app { min-height: 100%; }
 
 body {
-  margin: 5%;
-  margin-left: 15%;
-  margin-right: 15%;
+  width: min(calc(100% - 2rem), 1200px);
+  margin: 0 auto;
+  padding: clamp(1rem, 5vh, 3rem) 0;
   background-color: var(--background);
   color: var(--foreground);
+}
+
+img { max-width: 100%; }
+input, button { font: inherit; }
+.surface-card { @apply rounded-3xl border border-white/10 bg-[#15181e]; }
+.team-grid { @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3; }
+.player-grid { @apply grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3; }
+.team-info-grid { @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4; }
+.team-info-card { @apply rounded-3xl bg-[#15181e] p-5; }
+.team-hero { @apply flex min-h-50 w-full items-center gap-8 rounded-3xl border-b-6 p-5; }
+.player-card { @apply relative isolate flex w-full flex-col items-center overflow-hidden rounded-3xl bg-[#15181e] transition-all duration-300 hover:-translate-y-1; }
+
+@media (max-width: 640px) {
+  body { width: min(calc(100% - 1.5rem), 1200px); padding-block: 1rem; }
+  .team-hero { @apply min-h-36 gap-4 p-4; }
+  .team-hero img { @apply h-28 w-28; }
+  .team-hero h1 { @apply text-3xl; }
+  .player-hero { @apply flex-col-reverse items-center gap-0; }
+  .player-hero > img:first-child { @apply h-72 w-full object-contain object-bottom; }
+  .player-hero-copy { @apply w-full flex-none self-stretch px-5 pb-6 pt-3; }
+  .player-hero-copy h1 { @apply text-2xl; }
+  .player-hero-copy > div { @apply gap-2; }
+  .player-hero-copy > div > span:first-child { @apply text-4xl; }
+  .player-hero-logo { @apply right-3 top-3 h-12 w-12; }
+  .team-directory { @apply flex-col items-stretch gap-4; }
+  .team-directory nav { @apply flex-wrap gap-2; }
+  .team-directory input { @apply w-full; }
 }
 
 @theme inline {
@@ -146,10 +169,6 @@ body {
     @apply text-foreground;
   }
 
-  span {
-    @apply text-secondary;
-  }
-
   a {
     @apply text-foreground transition-colors duration-200;
   }
@@ -158,42 +177,11 @@ body {
     @apply text-secondary cursor-pointer;
   }
 
-  button {
-    @apply inline-flex items-center justify-center gap-2
-    rounded-lg px-5 py-2.5
-    bg-primary
-    font-medium text-sm
-    transition-all duration-200
-    cursor-pointer;
-  }
-
-  button:hover {
-    @apply opacity-80;
-  }
-
-  button:active {
-    @apply scale-[0.98];
-  }
-
-  button:disabled {
-    @apply opacity-40 cursor-not-allowed;
-  }
-
-  h1 {
-    @apply text-4xl md:text-5xl
-    font-bold tracking-tight
-    text-foreground leading-tight;
-  }
-
-  h2 {
-    @apply text-2xl md:text-3xl
-    font-semibold tracking-tight
-    text-foreground leading-snug;
-  }
-
-  p {
-    @apply text-base
-    text-secondary
-    leading-relaxed;
-  }
+  button { @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium transition-all duration-200; }
+  button:hover { @apply opacity-80; }
+  button:active { @apply scale-[0.98]; }
+  button:disabled { @apply cursor-not-allowed opacity-40; }
+  h1 { @apply text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl; }
+  h2 { @apply text-2xl font-semibold leading-snug tracking-tight text-foreground md:text-3xl; }
+  p { @apply text-base leading-relaxed text-secondary; }
 }

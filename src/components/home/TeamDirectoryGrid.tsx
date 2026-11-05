@@ -7,10 +7,21 @@ import type { Player } from '../../types/Player'
 const teams = teamsData as Team[]
 const players = playersData as Player[]
 
-export default function TeamCard() {
+interface TeamCardProps {
+  conference: string
+  query: string
+}
+
+export default function TeamCard({ conference, query }: TeamCardProps) {
+  const visibleTeams = teams.filter((team) => {
+    const matchesConference = conference === 'ALL' || team.conference.toUpperCase() === conference
+    const matchesQuery = `${team.name1} ${team.name2}`.toLowerCase().includes(query.trim().toLowerCase())
+    return matchesConference && matchesQuery
+  })
+
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {teams.map((team) => {
+    <section aria-label="NBA teams" className="team-grid">
+      {visibleTeams.map((team) => {
         const superstar = players.find(
           (player) =>
             player.teamId === team.id &&
@@ -26,19 +37,7 @@ export default function TeamCard() {
               '--team-primary': team.backgroundcolorPrimary,
               '--team-secondary': team.backgroundcolorSecondary,
             } as React.CSSProperties}
-            className="
-              relative isolate flex w-full min-h-50 flex-col
-              justify-between overflow-hidden
-              rounded-3xl border border-white/10
-              bg-[#15181e] p-5 pt-7
-              transition-all duration-300
-              hover:-translate-y-1
-              hover:border-(--team-primary)
-              hover:shadow-[0_0_20px_color-mix(in_srgb,var(--team-primary)_25%,transparent)]
-              before:absolute before:inset-x-0 before:top-0
-              before:h-1.5
-              before:bg-[linear-gradient(90deg,var(--team-primary),var(--team-secondary))]
-            "
+            className="surface-card relative isolate flex min-h-50 w-full flex-col justify-between overflow-hidden p-5 pt-7 transition-all duration-300 before:absolute before:inset-x-0 before:top-0 before:h-1.5 before:bg-[linear-gradient(90deg,var(--team-primary),var(--team-secondary))] hover:-translate-y-1 hover:border-(--team-primary) hover:shadow-[0_0_20px_color-mix(in_srgb,var(--team-primary)_25%,transparent)]"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -49,7 +48,7 @@ export default function TeamCard() {
               <img
                 className="h-20 w-20 object-contain"
                 src={team.logo}
-                alt={team.name1 + ' ' + team.name2 + ' logo'}
+                alt={`${team.name1} ${team.name2} logo`}
               />
             </div>
 
@@ -66,6 +65,6 @@ export default function TeamCard() {
           </Link>
         )
       })}
-    </div>
+    </section>
   )
 }

@@ -7,7 +7,7 @@ interface TeamPageHeaderProps {
 export default function TeamPageHeader({ team }: TeamPageHeaderProps) {
   return (
     <div
-      className="w-full min-h-50 flex items-center p-5 pt-7 rounded-3xl border-b-6 gap-8"
+      className="team-hero"
       style={{
         background: `linear-gradient(135deg, ${team.backgroundcolorPrimary} 35%, ${team.backgroundcolorSecondary} 100%)`,
         borderBottomColor: team.backgroundcolorSecondary,
@@ -16,7 +16,7 @@ export default function TeamPageHeader({ team }: TeamPageHeaderProps) {
       <img
         src={team.logo}
         alt={`${team.name1} ${team.name2} logo`}
-        className="h-50 w-50 object-contain"
+        className="h-50 w-50 shrink-0 object-contain"
       />
 
       <div>

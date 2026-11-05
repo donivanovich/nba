@@ -15,7 +15,7 @@ export default function PlayerHero({ player, team }: PlayerHeroProps) {
 
     return (
         <section
-            className="relative flex min-h-64 items-end overflow-hidden rounded-2xl border-b-4"
+            className="player-hero relative flex min-h-64 items-end overflow-hidden rounded-2xl border-b-4"
             style={{
                 background: team
                     ? `linear-gradient(110deg, ${team.backgroundcolorPrimary} 60%, ${team.backgroundcolorSecondary})`
@@ -29,7 +29,7 @@ export default function PlayerHero({ player, team }: PlayerHeroProps) {
                 className="z-10 h-64 w-[42%] object-contain object-bottom"
             />
 
-            <div className="z-10 flex flex-1 flex-col justify-center self-center py-6 pr-20">
+            <div className="player-hero-copy z-10 flex flex-1 flex-col justify-center self-center py-6 pr-20">
                 <div className="flex flex-wrap items-center gap-3">
                     <span className="text-5xl font-black">
                         #{player.number}
