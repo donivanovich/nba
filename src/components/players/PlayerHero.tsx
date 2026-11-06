@@ -25,11 +25,22 @@ export default function PlayerHero({ player, team, season }: PlayerHeroProps) {
                 borderBottomColor: team?.backgroundcolorPrimary,
             }}
         >
-            <img
-                src={getSeasonPlayerPhoto(player.photo, season)}
-                alt={player.fullname}
-                className="z-10 h-64 w-[42%] object-contain object-bottom"
-            />
+            {player.photo ? (
+                <img
+                    src={getSeasonPlayerPhoto(player.photo, season)}
+                    alt={player.fullname}
+                    className="z-10 h-64 w-[42%] object-contain object-bottom"
+                />
+            ) : (
+                <div
+                    aria-label={`${player.fullname} photo unavailable`}
+                    role="img"
+                    className="z-10 flex h-64 w-[42%] items-end justify-center pb-6 text-6xl font-black opacity-30"
+                >
+                    {player.name[0]}
+                    {player.surname[0]}
+                </div>
+            )}
 
             <div className="player-hero-copy z-10 flex flex-1 flex-col justify-center self-center py-6 pr-20">
                 <div className="flex flex-wrap items-center gap-12">

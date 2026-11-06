@@ -63,11 +63,22 @@ export default function TeamPlayerCard({ teamId, type, season }: TeamPlayerCardP
                             background: `linear-gradient(135deg, ${team?.backgroundcolorPrimary}, ${team?.backgroundcolorSecondary})`,
                         }}
                     >
-                        <img
-                            src={getSeasonPlayerPhoto(player.photo, season)}
-                            alt={player.fullname}
-                            className="h-full w-auto max-w-full object-contain object-bottom"
-                        />
+                        {player.photo ? (
+                            <img
+                                src={getSeasonPlayerPhoto(player.photo, season)}
+                                alt={player.fullname}
+                                className="h-full w-auto max-w-full object-contain object-bottom"
+                            />
+                        ) : (
+                            <span
+                                aria-label={`${player.fullname} photo unavailable`}
+                                role="img"
+                                className="text-5xl font-black opacity-30"
+                            >
+                                {player.name[0]}
+                                {player.surname[0]}
+                            </span>
+                        )}
                     </div>
 
                     <div className="flex flex-col w-full p-4 gap-4">
